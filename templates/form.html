@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form action="">
+    <form action="/convert">
         <label for="curr-from">Converting from:
-            <input type="text" id="curr-from" placeholder="Enter Currency Code">
+            <input type="text" id="curr-from" name="curr-from"  placeholder="Enter Currency Code">
         </label><br>
         <label for="curr-to">Converting to:
-            <input type="text" id="curr-to" placeholder="Enter Currency Code">
+            <input type="text" id="curr-to" name="curr-to" placeholder="Enter Currency Code">
         </label><br>
         <label for="amount">Amount:
-            <input type="text" id="amount" placeholder="Enter Amount">
-        </label>
+            <input type="text" id="amount" name="amount" placeholder="Enter Amount">
+        </label><br>
         <button>Convert</button>
     </form>
 

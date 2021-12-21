@@ -11,6 +11,10 @@
 
     {% block content %}{% endblock %}
 
-    
+    {% for msg in get_flashed_messages() %}
+    <p>{{msg}}</p>
+    {% endfor %}
+
+    <script src="/static/app.js"></script>
 </body>
 </html>

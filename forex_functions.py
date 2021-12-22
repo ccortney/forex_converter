@@ -1,20 +1,21 @@
-from forex_python.converter import CurrencyRates, CurrencyCodes
+from forex_python.converter import CurrencyRates, CurrencyCodes, RatesNotAvailableError
 
 c = CurrencyRates()
 s = CurrencyCodes()
 
 def conversion(curr_from, curr_to, amount):
-    new_amount = round(c.convert(curr_from, curr_to, float(amount)), 2)
+    """Converts a given amount from one currency to another"""
+    floated_amount = float(amount)
+    new_amount = round(c.convert(curr_from, curr_to, floated_amount), 2)
     return new_amount
 
 def get_symbol(curr_to):
+    """Gets the currecy symbol for the new currency"""
     new_symbol = s.get_symbol(curr_to)
     return new_symbol
 
-def check_currency_code(currency):
-    try: 
-        c.get_currency_name(currency)
-        return True
-    except: 
-        return False
-    
+currency_codes = ['EUR', 'IDR', 'BGN', 'ILS',
+'GBP','DKK','CAD','JPY','HUF','RON','MYR',
+'SEK','SGD','HKD','AUD','CHF','KRW','CNY',
+'TRY','HRK','NZD','THB','USD','NOK','RUB','INR',
+'MXN','CZK','BRL','PLN','PHP','ZAR']

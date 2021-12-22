@@ -3,15 +3,25 @@
 {% block content %}
     <form action="/convert">
         <label for="curr-from">Converting from:
-            <input type="text" id="curr-from" name="curr-from"  placeholder="Enter Currency Code">
+            <select name="curr-from" id="curr-from" required>
+                <option disabled hidden selected value=''>Currency Code</option>
+                {% for code in currency_code %}
+                    <option value="{{code}}" name="curr-from">{{code}}</option>
+                {% endfor %}
+            </select>
         </label><br>
         <label for="curr-to">Converting to:
-            <input type="text" id="curr-to" name="curr-to" placeholder="Enter Currency Code">
+            <select name="curr-to" id="curr-to" required>
+                <option disabled hidden selected value="">Currency Code</option>
+                {% for code in currency_code %}
+                    <option value="{{code}}" name="curr-to">{{code}}</option>
+                {% endfor %}
+            </select>
         </label><br>
         <label for="amount">Amount:
-            <input type="text" id="amount" name="amount" placeholder="Enter Amount">
+            <input type="text" id="amount" name="amount" placeholder="Enter Amount" required>
         </label><br>
         <button>Convert</button>
-    </form>
+        </form>
 
 {% endblock %}

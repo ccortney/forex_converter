@@ -37,21 +37,36 @@ class FormSubmitTestCase(TestCase):
             self.assertIn('$', html)
     
     def test_form_redirection(self):
-        """Testing that the form redirects properly"""
+        """Testing that the form has the correct status code for redirects"""
         with app.test_client() as client:
+            """Converting to ILS currently isn't working"""
+            res = client.get('/convert', query_string = {'curr-from': 'USD', 'curr-to': 'ILS', 'amount': '2000'})
+        
+            self.assertEqual(res.status_code, 302)
+            self.assertEqual(res.location, 'http://localhost/')
+    
+        with app.test_client() as client:
+            """Amount cannot be a string"""
             res = client.get('/convert', query_string = {'curr-from': 'USD', 'curr-to': 'USD', 'amount': '2,000'})
         
             self.assertEqual(res.status_code, 302)
             self.assertEqual(res.location, 'http://localhost/')
     
     def test_form_redirection_followed(self):
-        """Testing that the form redirects properly when amount is a string"""
+        """Testing that the form redirects properly"""
         with app.test_client() as client:
             res = client.get('/convert', query_string = {'curr-from': 'USD', 'curr-to': 'USD', 'amount': '2,000'}, follow_redirects=True)
             html = res.get_data(as_text=True)
 
             self.assertEqual(res.status_code, 200)
             self.assertIn('<p>Invalid amount, must be a number!</p>', html)
+        
+        with app.test_client() as client:
+            res = client.get('/convert', query_string = {'curr-from': 'USD', 'curr-to': 'ILS', 'amount': '2000'}, follow_redirects=True)
+            html = res.get_data(as_text=True)
+
+            self.assertEqual(res.status_code, 200)
+            self.assertIn('<p>One of your currency codes is currently not available!</p>', html)
 
 
 

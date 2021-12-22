@@ -1,4 +1,3 @@
-from logging import currentframe
 from flask import Flask, request, render_template, redirect, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from forex_python.converter import RatesNotAvailableError

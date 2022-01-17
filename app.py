@@ -25,6 +25,9 @@ def convert():
     try:
         new_amount = conversion(curr_from, curr_to, amount)
         symbol = get_symbol(curr_to)
+        if (int(amount) < 0):
+            flash("Please enter a positive amount!")
+            return redirect('/')
         return render_template("result.html", new_amount=new_amount, symbol=symbol)
     except ValueError:
         flash(f"Invalid amount, must be a number!")
